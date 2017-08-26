@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<simpleProperties>
+		<property propertyName="projectName" rowIndex="3" cellIndex="1" cellType="String"/>
+	</simpleProperties>
+	<listProperties>
+		<property propertyName="suppliers" tplRow="5">
+			<item cellIndex="0" propertyName="seq" cellType="Number"/>
+			<item cellIndex="1" propertyName="name"/>
+			<item cellIndex="2" propertyName="remark"/>
+		</property>
+		<property propertyName="remarks" tplRow="6">
+			<item cellIndex="0" propertyName="remark" colSpan="3"/>
+		</property>
+	</listProperties>
+</config>
