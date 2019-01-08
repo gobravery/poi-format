@@ -12,9 +12,9 @@ import net.sf.json.JSONObject;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
-		InputStream is = new FileInputStream("D:\\EvaBidReport.xml");
+		InputStream is = new FileInputStream("src/main/resources/simple/EvaBidReport.xml");
 		ExcelBuilderConfig cfg = ExcelBuilderConfig.parse(is);
-		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("D:\\EvaBidReport.xls"));
+		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("src/main/resources/simple/EvaBidReport.xls"));
 		HSSFWorkbook wb = new HSSFWorkbook(fs);
 //		JSONObject obj = new JSONObject();
 //		obj.put("projectName", "测试文件");
@@ -72,6 +72,6 @@ public class Test {
 		}
 		obj.put("rootKvalue", arr1);
 		ExcelUtils.export(wb, 0, cfg, obj, null);
-		wb.write(new FileOutputStream("D:\\test2.xls"));
+		wb.write(new FileOutputStream("src/main/resources/simple/test2.xls"));
 	}
 }
