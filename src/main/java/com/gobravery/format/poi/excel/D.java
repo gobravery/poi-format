@@ -4,15 +4,11 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 public final class D {
     public D() {
@@ -58,16 +54,24 @@ public final class D {
                         y, width_biao, height_biao, null);
             //水印文件结束
             g.dispose();
-            FileOutputStream os = new FileOutputStream("D:/ooyyyeImg.png");
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
-            encoder.encode(targetImg);
-            os.close();
+            targetImg(targetImg);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return targetImg;
     }
-
+    public static void targetImg(BufferedImage targetImg) throws IOException{
+    	//FileOutputStream os = new FileOutputStream("D:/ooyyyeImg.png");
+        //JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(os);
+        //encoder.encode(targetImg);
+        //os.close();
+    	FileOutputStream out = new FileOutputStream("D:/ooyyyeImg.png");
+        ImageIO.write(targetImg, "jpg", out);
+        out.flush();
+        out.close();
+        targetImg.flush();
+        targetImg = null;
+    }
     /** *//**
      * 打印文字水印图片
      *
@@ -108,10 +112,7 @@ public final class D {
             		alpha)); 
             g.drawString(pressText, x, y);
             g.dispose();
-            FileOutputStream out = new FileOutputStream("D:/ooyyyeText.png");
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(targetImg);
-            out.close();
+            targetImg(targetImg);
         } catch (Exception e) {
             //System.out.println(e);
         }
