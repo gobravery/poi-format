@@ -11,11 +11,11 @@ import net.sf.json.JSONObject;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
-		InputStream is = new FileInputStream("d:\\test\\test.xml");
+		InputStream is = new FileInputStream("src/main/resources/simple/word/test.xml");
 		//
 		WordBuilderConfig cfg = WordBuilderConfig.parse(is);
 		//
-		FileInputStream fs = new FileInputStream("d:\\test\\test.docx");
+		FileInputStream fs = new FileInputStream("src/main/resources/simple/word/test.docx");
 		XWPFDocument  wb = new XWPFDocument (fs);
 
 		JSONObject obj = new JSONObject();
@@ -35,6 +35,6 @@ public class Test {
 		obj.put("suppliers", arr);
 		
 		WordUtils.export(wb, cfg, obj, null);
-		wb.write(new FileOutputStream("D:\\test\\test2.docx"));
+		wb.write(new FileOutputStream("src/main/resources/simple/word/test_res.docx"));
 	}
 }
