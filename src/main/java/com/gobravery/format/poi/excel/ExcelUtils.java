@@ -58,7 +58,7 @@ public class ExcelUtils {
 					JSONObject item = arr.getJSONObject(i);
 					curListIndex=i+1;
 					for(ListItemConfig itemConfig : config.getItemConfig()) {
-						builder.buildRowProperty((short) i, itemConfig.getCellIndex(), (short) itemConfig.getColSpan(), toCellValue(item, itemConfig.getPropertyName(), itemConfig.getCellType()));
+						builder.buildRowProperty(i, (int) itemConfig.getCellIndex(), itemConfig.getColSpan(), toCellValue(item, itemConfig.getPropertyName(), itemConfig.getCellType()));
 						
 					}
 				}
@@ -117,7 +117,7 @@ public class ExcelUtils {
 		return null;
 	}
 	
-	private static int[] insertImgForLeaders(HSSFWorkbook wb, String value, short r, short c) {
+	private static int[] insertImgForLeaders(HSSFWorkbook wb, String value, short r, int c) {
 	    int   imgWidth   =   350; 
 	    int   imgHeight   =   0;
 	    ////System.out.println(123123);
@@ -184,7 +184,7 @@ public class ExcelUtils {
 			HSSFSheet sheet1 = wb.getSheetAt(0);
 			HSSFPatriarch patriarch = sheet1.createDrawingPatriarch();
 			HSSFClientAnchor anchor = new HSSFClientAnchor(5, 5, 0, 0,
-					 c, r, (short)(c+2), (short)(r+1));
+					(short)c, r, (short)(c+2),(r+1));
 			patriarch.createPicture(anchor, wb.addPicture(byteArrayOut 
                     .toByteArray(), HSSFWorkbook.PICTURE_TYPE_PNG));
 			//patriarch.setCoordinates(1, 1, (int)(imgWidth*13.4), (int)(*13.4));
