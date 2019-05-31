@@ -23,6 +23,9 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.gobravery.format.poi.excel.row.RowPostCallBack;
+import com.gobravery.format.poi.excel.row.RowSpanPostCall;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -68,6 +71,12 @@ public class ExcelUtils {
 				}
 			}
 		}
+		//行操作
+		for(RowPropertyConfig config : cfg.getRowPropertyConfig()) {
+			RowPostCallBack rcb=new RowSpanPostCall();
+			rcb.postBuild(ws, config);
+		}
+		//
 		if(cb != null) cb.postBuild(ws);
 	}
 	

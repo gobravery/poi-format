@@ -31,4 +31,7 @@
 	<simpleProperties>
 		<property propertyName="openBidDate" rowIndex="16" cellIndex="6" cellType="String"/>
 	</simpleProperties>
+	<rowProperties>
+		<property rowIndex="9" cellIndex="0" action="RowSpan" condition="%"/>
+	</rowProperties>
 </config>
