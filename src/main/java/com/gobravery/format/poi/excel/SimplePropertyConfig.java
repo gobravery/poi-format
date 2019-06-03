@@ -2,17 +2,17 @@ package com.gobravery.format.poi.excel;
 
 public class SimplePropertyConfig {
 	private int rowIndex;
-	private short cellIndex;
+	private int cellIndex;
 	public int getRowIndex() {
 		return rowIndex;
 	}
 	public void setRowIndex(int rowIndex) {
 		this.rowIndex = rowIndex;
 	}
-	public short getCellIndex() {
+	public int getCellIndex() {
 		return cellIndex;
 	}
-	public void setCellIndex(short cellIndex) {
+	public void setCellIndex(int cellIndex) {
 		this.cellIndex = cellIndex;
 	}
 	public String getPropertyName() {

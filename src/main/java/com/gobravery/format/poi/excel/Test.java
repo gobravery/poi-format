@@ -47,7 +47,18 @@ public class Test {
 		JSONArray arr = new JSONArray();
 		for(int i = 0; i < 10; i++) {
 			JSONObject item = new JSONObject();
-			item.put("compName", "测试文件" + i);
+			if(i<3){
+				item.put("compName", "测试文件" + 2);
+			}
+			if(i>=3 && i<6){
+				item.put("compName", "测试文件" + 4);
+			}
+			if(i>=6  && i<8){
+				item.put("compName", "测试文件" + 7);
+			}
+			if(i>=8){
+				item.put("compName", "测试文件" + i);
+			}
 			item.put("EvaBidLuPrice", "测试文件" + i);
 			item.put("TechScore", "测试文件" + i);
 			item.put("BusinessScore", "测试文件" + i);

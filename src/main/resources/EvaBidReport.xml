@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<simpleProperties>
+		<property propertyName="projectName" rowIndex="1" cellIndex="1" cellType="String"/>
+		<property propertyName="productName" rowIndex="2" cellIndex="1" cellType="String"/>
+		<property propertyName="priceProc" rowIndex="3" cellIndex="5" cellType="String"/>
+		<property propertyName="totalScoDesc" rowIndex="5" cellIndex="1" cellType="String"/>
+		<property propertyName="techBusScoDesc" rowIndex="6" cellIndex="1" cellType="String"/>
+	</simpleProperties>
+	<listProperties>
+		<property propertyName="suppliers"  tplRow="9">
+			<item cellIndex="0" propertyName="compName"/>
+		   	<item cellIndex="1" propertyName="EvaBidLuPrice"/>
+			<item cellIndex="2" propertyName="TechScore"/>
+			<item cellIndex="3" propertyName="BusinessScore"/>
+			<item cellIndex="4" propertyName="PriceScore" />  
+			<item cellIndex="5" propertyName="TotalScore" />
+			<item cellIndex="6" propertyName="EvaBidresult" />
+			<item cellIndex="7" propertyName="ranking" />
+		</property>
+		<property propertyName="rootKvalue"  tplRow="10">
+			<item cellIndex="0" propertyName="compName"/>
+		   	<item cellIndex="1" propertyName="EvaBidLuPrice"/>
+			<item cellIndex="2" propertyName="TechScore"/>
+			<item cellIndex="3" propertyName="BusinessScore"/>
+			<item cellIndex="4" propertyName="PriceScore"/>
+			<item cellIndex="5" propertyName="TotalScore"/>
+			<item cellIndex="6" propertyName="EvaBidresult"  colSpan="2"/>
+		</property>
+	</listProperties>
+	<simpleProperties>
+		<property propertyName="openBidDate" rowIndex="16" cellIndex="6" cellType="String"/>
+	</simpleProperties>
+	<rowProperties>
+		<!-- rowspan 表示跨列,rowIndex 开始行,cellIndex开始例 ,condition为_%_、%_、_%等同sql的like-->
+		<property rowIndex="9" cellIndex="0" action="RowSpan" condition="%"/>
+	</rowProperties>
+</config>
