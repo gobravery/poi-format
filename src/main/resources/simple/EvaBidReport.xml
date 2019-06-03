@@ -31,4 +31,8 @@
 	<simpleProperties>
 		<property propertyName="openBidDate" rowIndex="16" cellIndex="6" cellType="String"/>
 	</simpleProperties>
+	<rowProperties>
+		<!-- rowspan 表示跨列,rowIndex 开始行,cellIndex开始例 ,condition为_%_、%_、_%等同sql的like-->
+		<property rowIndex="9" cellIndex="0" action="RowSpan" condition="%"/>
+	</rowProperties>
 </config>
