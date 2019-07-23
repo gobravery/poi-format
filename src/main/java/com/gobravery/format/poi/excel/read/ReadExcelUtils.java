@@ -58,10 +58,49 @@ public class ReadExcelUtils {
 		
 		return result;
 	}
-	
 	/**
-	 * @param hSSFWorkbookPath  excel文档地址
+	 * @param tpl  excel文档
 	 * @param sheetIndex  表格编号0开始
+	 * @param cfg  配置
+	 * @param cb  逐行处理
+	 */
+	public static void readDo(HSSFWorkbook tpl, int sheetIndex, ExcelBuilderConfig cfg, ReadProcessor cb){
+		HSSFSheet ws = tpl.getSheetAt(sheetIndex);
+		if(cb != null) cb.preBuild(ws);
+		//
+		int end=ws.getLastRowNum();
+		//
+		for(ListPropertyConfig config : cfg.getListPropertyConfig()) {
+			int start=config.getTplRow();
+			while(start<end){
+				//
+				HSSFRow row=ws.getRow(start);
+				//
+				Map<String,Object> vm=new HashMap<String,Object>();
+				//
+				for(ListItemConfig item:config.getItemConfig()){
+					HSSFCell vals=row.getCell(Integer.valueOf(item.getCellIndex()));
+					vm.put(item.getPropertyName(),toCellValue(vals,item.getCellType()));
+				}
+				//
+				start++;
+				if(cb != null) cb.processor(vm,ws);
+			}
+		}
+	}
+	/**
+	 *   表格编号sheetIndex=0开始
+	 * @param tpl  excel文档
+	 * @param cfg  配置
+	 * @param cb  逐行处理
+	 */
+	public static void readDo(HSSFWorkbook tpl, ExcelBuilderConfig cfg, ReadProcessor cb){
+		readDo(tpl,0,cfg,cb);
+	}
+	/**
+	 *  表格编号0开始
+	 * @param hSSFWorkbookPath  excel文档地址
+	 * @param sheetIndex 
 	 * @param excelBuilderConfigPath  配置xml地址
 	 * @param cb  回调
 	 * @return
@@ -70,7 +109,7 @@ public class ReadExcelUtils {
 		try {
 			InputStream is = new FileInputStream(excelBuilderConfigPath);//"src/main/resources/simple/EvaBidReport.xml"
 			ExcelBuilderConfig cfg = ExcelBuilderConfig.parse(is);
-			POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(excelBuilderConfigPath));//"src/main/resources/simple/EvaBidReport.xls"
+			POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(hSSFWorkbookPath));//"src/main/resources/simple/EvaBidReport.xls"
 			HSSFWorkbook wb = new HSSFWorkbook(fs);
 			return read(wb,sheetIndex,cfg,cb);
 		} catch (FileNotFoundException e) {

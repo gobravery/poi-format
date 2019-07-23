@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<listProperties>
+		<property tplRow="3">
+			<item cellIndex="0" propertyName="c0" />
+			<item cellIndex="1" propertyName="c1" />
+			<item cellIndex="2" propertyName="c2" />
+			<item cellIndex="3" propertyName="c3" cellType="Date"/>
+		</property>
+	</listProperties>
+</config>
