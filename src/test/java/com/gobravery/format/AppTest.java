@@ -1,5 +1,10 @@
 package com.gobravery.format;
 
+import java.util.List;
+import java.util.Map;
+
+import com.gobravery.format.poi.excel.read.ReadExcelUtils;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,5 +39,11 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+    public void testRead(){
+    	List<Map<String,Object>> res=ReadExcelUtils.read("src/main/resources/simple/read-t1.xls", "src/main/resources/simple/read-t1.xml");
+    	for(Map<String,Object> r:res){
+    		System.out.println("-->"+r);
+    	}
     }
 }
