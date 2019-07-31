@@ -84,7 +84,12 @@ public class ReadExcelUtils {
 				}
 				//
 				start++;
-				if(cb != null) cb.processor(vm,ws);
+				if(cb != null) {
+					boolean ct=cb.processor(vm,ws);
+					if(!ct){
+						return;
+					}
+				}
 			}
 		}
 	}
