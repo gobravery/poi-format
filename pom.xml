@@ -4,7 +4,7 @@
 
 	<groupId>com.gobravery</groupId>
 	<artifactId>format</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<packaging>jar</packaging>
 
 	<name>format</name>
@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<poi.version>3.12</poi.version>
 	</properties>
 
 	<dependencies>
@@ -25,17 +26,17 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.10-FINAL</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.10-FINAL</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.10-FINAL</version>
+			<version>${poi.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-digester/commons-digester -->
 		<dependency>
