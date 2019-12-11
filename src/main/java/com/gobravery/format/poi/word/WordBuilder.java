@@ -191,8 +191,6 @@ public class WordBuilder {
 	}
 	private void replaceInTable(XWPFTable table, JSONObject params, TablePropertyConfig config) {
 
-		List<XWPFTableRow> rows = table.getRows();// 所有行
-		List<XWPFTableCell> cells;
 		// List<XWPFParagraph> paras;
 		String value = getValue(config.getPropertyName(), params);
 		int row = config.getRow();// 开始行
