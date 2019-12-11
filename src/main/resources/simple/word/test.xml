@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<simpleProperties>
-		<property propertyName="head" cellType="String"/>
-		<property propertyName="xm" cellType="String"/>
+		<property propertyName="head" cellType="String" />
+		<property propertyName="xm" cellType="String" />
+		<property propertyName="pic" cellType="Image" width="120" height="120" />
 	</simpleProperties>
-
+	<tableProperties>
+		<property propertyName="pic" cellType="Image" width="60" height="60" row="0" cell="0" table="1"/>
+		<property propertyName="xm" cellType="String" row="0" cell="1" table="1"/>
+	</tableProperties>
 	<listProperties>
-		<property propertyName="suppliers" row="1" table="0" rowNext="Add">
-			<item cellIndex="0" propertyName="inOrder" cellType="String"/>
-		   	<item cellIndex="1" propertyName="Name" cellType="String"/>
-			<item cellIndex="2" propertyName="CardType" cellType="String"/>
-			<item cellIndex="3" propertyName="CardNum" cellType="String"/>
-			<item cellIndex="4" propertyName="Remark" cellType="String"/>  
+		<property propertyName="suppliers" row="2" table="0" rowNext="Add">
+			<item cellIndex="0" propertyName="inOrder" cellType="String" />
+			<item cellIndex="1" propertyName="Name" cellType="String" />
+			<item cellIndex="2" propertyName="CardType" cellType="String" />
+			<item cellIndex="3" propertyName="CardNum" cellType="String" />
+			<item cellIndex="4" propertyName="Remark" cellType="String" />
 		</property>
 	</listProperties>
 </config>

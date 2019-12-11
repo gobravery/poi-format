@@ -1,5 +1,6 @@
 package com.gobravery.format.poi.word;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -32,6 +33,8 @@ public class WordUtils {
 	public static void export(XWPFDocument tpl, WordBuilderConfig cfg, JSONObject obj, WordBuilderCallback cb) {
 		WordBuilder wb=new WordBuilder();
 		wb.buildSimpleProperty(tpl, obj, cfg.getSimplePropertyConfig());
+		//
+		wb.buildTableProperty(tpl, obj, cfg.getTablePropertyConfig());
 		//
 		wb.buildListProperty(tpl, obj, cfg.getListPropertyConfig());
 		//
@@ -70,9 +73,22 @@ public class WordUtils {
 		//文件名
 		String filename = UUID.randomUUID().toString()+".docx";
 		//临时文件地址
-		String file = "src/main/resources/simple/word/"+filename;
+		String file = getTempFile()+"/"+filename;
 		//
 		export(config,wordtpl,item,file);
+		return file;
+	}
+	public static String getTempFile(){
+		String sysos = System.getProperties().getProperty("os.name");
+		String file = "/var/temp/doc";
+		if(sysos.toLowerCase().startsWith("win")){ 
+			file = "/temp/doc";
+		}
+		File fs = new File(file);
+		if(!fs.exists()){
+			//创建文件目录
+			fs.mkdirs();
+		}
 		return file;
 	}
 }
