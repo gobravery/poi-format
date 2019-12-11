@@ -194,10 +194,10 @@ public class WordBuilder {
 		opt.setColor(src.getColor());
 		if(src.getFontSize()>0){
 			opt.setFontSize(src.getFontSize());
-			System.out.println(src.getFontSize()+"size");
+			//System.out.println(src.getFontSize()+"size");
 		}
 		opt.setFontFamily(src.getFontFamily());
-		opt.setStrike(src.isStrike());
+		opt.setStrikeThrough(src.isStrike());
 		opt.setSubscript(src.getSubscript());
 		opt.setBold(src.isBold());
 		opt.setItalic(src.isItalic());
