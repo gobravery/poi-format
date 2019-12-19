@@ -7,15 +7,12 @@ import java.io.InputStream;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
-		InputStream is = new FileInputStream("src/main/resources/simple/EvaBidReport.xml");
-		ExcelBuilderConfig cfg = ExcelBuilderConfig.parse(is);
-		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("src/main/resources/simple/EvaBidReport.xls"));
-		HSSFWorkbook wb = new HSSFWorkbook(fs);
+		
 //		JSONObject obj = new JSONObject();
 //		obj.put("projectName", "测试文件");
 //		JSONArray arr = new JSONArray();
@@ -81,8 +78,9 @@ public class Test {
 			arr1.add(item);
 			
 		}
+		
 		obj.put("rootKvalue", arr1);
-		ExcelUtils.export(wb, 0, cfg, obj, null);
-		wb.write(new FileOutputStream("src/main/resources/simple/test2.xls"));
+		
+		ExcelUtils.export("src/main/resources/simple/EvaBidReport.xml", "src/main/resources/simple/EvaBidReport.xls", "src/main/resources/simple/test2.xls", obj);
 	}
 }

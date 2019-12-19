@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -23,15 +23,23 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.gobravery.format.poi.excel.CellType;
 import com.gobravery.format.poi.word.config.ValueConfig;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 public class WordBuilder {
+	/**
+	 * 用于保存简单属性的配置信息
+	 */
 	private Map<String, SimplePropertyConfig> valueType = new HashMap<String, SimplePropertyConfig>();
+	/**
+	 * 用于保存当前表格各列的样式
+	 */
 	private Map<Integer, XWPFRunStyle> runType = new HashMap<Integer, XWPFRunStyle>();
+	/**
+	 * 用于填充表格的行INDEX,每次开始填充之前会做初始化.
+	 */
 	private Integer currows = 0;
 
 	public void buildSimpleProperty(XWPFDocument doc, JSONObject params, List<SimplePropertyConfig> config) {
@@ -242,16 +250,16 @@ public class WordBuilder {
 	 */
 	private String getValue(String key, JSONObject params,ListItemConfig config) {
 		if (config.getCellType() == CellType.Date) {
-			return WordUtils.sdf.format(params.opt(key));
+			return WordUtils.sdf.format(params.get(key));
 		} else {
-			return String.valueOf(params.opt(key));
+			return String.valueOf(params.get(key));
 		}
 	}
 	private String getValue(String key, JSONObject params) {
 		if (valueType.get(key).getCellType() == CellType.Date) {
-			return WordUtils.sdf.format(params.opt(key));
+			return WordUtils.sdf.format(params.get(key));
 		} else {
-			return String.valueOf(params.opt(key));
+			return String.valueOf(params.get(key));
 		}
 	}
 
@@ -298,9 +306,12 @@ public class WordBuilder {
 			e.printStackTrace();
 		}
 	}
+	private boolean isEmpty(String val){
+		return val==null || val.equals("");
+	}
 	private XWPFParagraph findPar(List<XWPFParagraph> ghs){
 		for(XWPFParagraph g:ghs){
-			if(!StringUtils.isEmpty(g.getParagraphText())){
+			if(!isEmpty(g.getParagraphText())){
 				return g;
 			}
 		}
@@ -308,7 +319,7 @@ public class WordBuilder {
 	}
 	private XWPFRun findRun(List<XWPFRun> ghs){
 		for(XWPFRun r:ghs){
-			if(!StringUtils.isEmpty(r.toString())){
+			if(!isEmpty(r.toString())){
 				return r;
 			}
 		}

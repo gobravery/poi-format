@@ -6,8 +6,8 @@ import java.io.InputStream;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 public class Test {
 	public static void main(String[] args) throws Exception {
