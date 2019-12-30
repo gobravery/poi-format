@@ -70,19 +70,22 @@ public class WordUtils {
 	 * @throws Exception
 	 */
 	public static String export(String config,String wordtpl,JSONObject item) throws Exception {
-		//文件名
-		String filename = UUID.randomUUID().toString()+".docx";
 		//临时文件地址
-		String file = getTempFile()+"/"+filename;
+		String file = getDocTempDir()+"/"+getDocTempFileName();
 		//
 		export(config,wordtpl,item,file);
 		return file;
 	}
-	public static String getTempFile(){
+	/**
+	 * 得到临时文件目录
+	 * @param type  临时文件类型
+	 * @return
+	 */
+	public static String getTempFileDir(String type){
 		String sysos = System.getProperties().getProperty("os.name");
-		String file = "/var/temp/doc";
+		String file = "/var/temp/"+type;
 		if(sysos.toLowerCase().startsWith("win")){ 
-			file = "/temp/doc";
+			file = "/temp/"+type;
 		}
 		File fs = new File(file);
 		if(!fs.exists()){
@@ -90,5 +93,31 @@ public class WordUtils {
 			fs.mkdirs();
 		}
 		return file;
+	}
+	/**
+	 * 得到doc临时文件目录
+	 * @return
+	 */
+	public static String getDocTempDir(){
+		return getTempFileDir("doc");
+	}
+	/**
+	 * 得到临时文件名
+	 * 完整的扩展名，包括"."
+	 * @param ext 扩展名，如：.doc,.xls等
+	 * @return
+	 */
+	public static String getTempFileName(String ext){
+		//文件名
+		String filename = UUID.randomUUID().toString()+ext;
+		return filename;
+	}
+	/**
+	 * 得到docx的临时文件名，包含docx的扩展名
+	 * @return
+	 */
+	public static String getDocTempFileName(){
+		//文件名
+		return getTempFileName(".docx");
 	}
 }
