@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
@@ -49,6 +50,11 @@ public class WordUtils {
 	 * @throws Exception
 	 */
 	public static void export(String config,String wordtpl,JSONObject item,String tofile) throws Exception {
+		//
+		export(config,wordtpl,item,new FileOutputStream(tofile));
+		return;
+	}
+	public static void export(String config,String wordtpl,JSONObject item,OutputStream response) throws Exception {
 		InputStream is = new FileInputStream(config);
 		//
 		WordBuilderConfig cfg = WordBuilderConfig.parse(is);
@@ -58,7 +64,7 @@ public class WordUtils {
 		//
 		export(wb, cfg, item, null);
 		//
-		wb.write(new FileOutputStream(tofile));
+		wb.write(response);
 		//
 		return;
 	}

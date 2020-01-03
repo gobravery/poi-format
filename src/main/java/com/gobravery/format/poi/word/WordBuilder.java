@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -101,11 +101,14 @@ public class WordBuilder {
 		List<XWPFRun> runs;
 		Matcher matcher;
 		if (this.matcher(para.getParagraphText()).find()) {
+			//开始之前进行合并
+			clearnPara(para);
+			//
 			runs = para.getRuns();
 			for (int i = 0; i < runs.size(); i++) {
 				XWPFRun run = runs.get(i);
-				System.out.println(run);
 				String runText = run.toString();
+				System.out.println(i+">>"+runText);
 				matcher = this.matcher(runText);
 				if (matcher.find()) {
 					//替换段落中多个文档
@@ -127,6 +130,79 @@ public class WordBuilder {
 					para.removeRun(i+1);
 					//设置值
 					setValue(temp,runText,valueType.get(key));
+				}
+			}
+		}
+	}
+	/**
+	 * 清理模版,将不合并的${}，合并在一个run中
+	 * @param para
+	 */
+	private void clearnPara(XWPFParagraph para){
+		Matcher matcher;
+		List<XWPFRun> runs = para.getRuns();
+		//
+		boolean head = false;
+		boolean end = false;
+		//完整的mask
+		StringBuilder mask = new StringBuilder();
+		List<Integer> unions =  new ArrayList<Integer>();
+		//
+		for (int i = 0; i < runs.size(); i++) {
+			XWPFRun run = runs.get(i);
+			//System.out.println(run);
+			String runText = run.toString();
+			matcher = this.matcher(runText);
+			if (!matcher.find()) {
+				//如果没有找到-是否有头部匹配
+				matcher = this.matcherBegin(runText);
+				if(matcher.find()) {
+					if(!head){//第一次找到头部
+						head = true;
+						mask.append(runText);
+						unions.add(i);
+						//System.out.println("头"+runText);
+					}else{
+						//第二次找到头部,清空重来
+						mask.setLength(0);
+						head = false;
+						end = false;
+						unions.clear();
+					}
+					continue;
+				}
+				//如果没有找到-是否有尾部匹配
+				matcher = this.matcherEnd(runText);
+				if(matcher.find()) {
+					if(!end && head){//第一次找到尾部,且有头部
+						end = true;
+						mask.append(runText);
+						unions.add(i);
+						//删除需要合并的
+						for(int t = 1;t<unions.size();t++){//取第二个值的位置，不停删除
+							para.removeRun(unions.get(1));
+						}
+						//System.out.println("尾"+runText);
+						///开始合并
+						XWPFRun temp=runs.get(unions.get(0));
+						temp.setText(mask.toString(),0);
+						//递归继续合并
+						clearnPara(para);
+						return;
+					}else{
+						//清空
+						mask.setLength(0);
+						head = false;
+						end = false;
+						unions.clear();		
+					}
+					continue;
+				}
+				//如果没有找到-已找到头部但未找到尾部，则为中部
+				if(head && !end) {
+					mask.append(runText);
+					unions.add(i);
+					//System.out.println("中"+runText);
 				}
 			}
 		}
@@ -166,6 +242,7 @@ public class WordBuilder {
 		List<XWPFTableCell> cells;
 		// List<XWPFParagraph> paras;
 		JSONArray listparams = params.getJSONArray(config.getPropertyName());
+		if(listparams==null)return;
 		currows = config.getRow();// 开始行
 		XWPFTableRow row=null;// 上一行
 		for (int i = 0; i < listparams.size(); i++) {
@@ -221,13 +298,23 @@ public class WordBuilder {
 		Matcher matcher = pattern.matcher(str);
 		return matcher;
 	}
+	private Matcher matcherBegin(String str) {
+		Pattern pattern = Pattern.compile("\\$\\{", Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(str);
+		return matcher;
+	}
+	private Matcher matcherEnd(String str) {
+		Pattern pattern = Pattern.compile("\\}", Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(str);
+		return matcher;
+	}
 	/**
 	 * 判断是否图片
 	 * @param key
 	 * @return
 	 */
 	private boolean isImage(ValueConfig conf){
-		if (conf.getCellType() == CellType.Image) {
+		if (conf!=null && conf.getCellType() == CellType.Image) {
 			return true;
 		}
 		return false;
@@ -256,7 +343,7 @@ public class WordBuilder {
 		}
 	}
 	private String getValue(String key, JSONObject params) {
-		if (valueType.get(key).getCellType() == CellType.Date) {
+		if (valueType.get(key)!=null && valueType.get(key).getCellType() == CellType.Date) {
 			return WordUtils.sdf.format(params.get(key));
 		} else {
 			return String.valueOf(params.get(key));
