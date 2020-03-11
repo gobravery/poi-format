@@ -103,6 +103,29 @@ public class ReadExcelUtils {
 		readDo(tpl,0,cfg,cb);
 	}
 	/**
+	 * @param hSSFWorkbookPath "src/main/resources/simple/EvaBidReport.xls"
+	 * @param excelBuilderConfigPath "src/main/resources/simple/EvaBidReport.xml"
+	 * @param cb  逐行处理
+	 */
+	public static void readDo(String hSSFWorkbookPath, String excelBuilderConfigPath, ReadProcessor cb){
+		try {
+			InputStream is = new FileInputStream(excelBuilderConfigPath);
+			ExcelBuilderConfig cfg = ExcelBuilderConfig.parse(is);
+			POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(hSSFWorkbookPath));//"src/main/resources/simple/EvaBidReport.xls"
+			HSSFWorkbook tpl = new HSSFWorkbook(fs);
+			readDo(tpl,0,cfg,cb);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
 	 *  表格编号0开始
 	 * @param hSSFWorkbookPath  excel文档地址
 	 * @param sheetIndex 
