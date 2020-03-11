@@ -46,7 +46,6 @@ public class WordUtils {
 	 * @param wordtpl doc模版文件docx格式路径
 	 * @param item 填充数据
 	 * @param tofile 填充好数据的文件路径
-	 * @return 
 	 * @throws Exception
 	 */
 	public static void export(String config,String wordtpl,JSONObject item,String tofile) throws Exception {
