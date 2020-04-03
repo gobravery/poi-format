@@ -225,8 +225,12 @@ public class WordBuilder {
 				e.printStackTrace();
 			}
 		}else{
-			temp.setText(value);
+			temp.setText(fixNull(value));
 		}
+	}
+	private String fixNull(String val){
+		if(val==null)return"";
+		return val;
 	}
 	/**
 	 * 替换表格里面的变量
@@ -280,10 +284,14 @@ public class WordBuilder {
 		String value = getValue(config.getPropertyName(), params);
 		int row = config.getRow();// 开始行
 		int cell = config.getCell();// 开始行
+		
 		XWPFTableRow tableRow=table.getRow(row);
 			//
 		XWPFTableCell tableCell = tableRow.getCell(cell);
 			//
+		if(tableCell==null){
+			System.out.println("row"+row+",cell"+cell);
+		}
 		setCellValue(tableCell,value,config);
 			
 	}
@@ -416,6 +424,10 @@ public class WordBuilder {
 		setCellValue(cell,value,-1,conf);
 	}
 	private void setCellValue(XWPFTableCell cell,String value,Integer index,ValueConfig conf){
+		if(cell==null){
+			System.out.println(value+"index:"+index);
+			return;
+		}
 		//
 		XWPFRunStyle src=new XWPFRunStyle();
 		//只保留一个
