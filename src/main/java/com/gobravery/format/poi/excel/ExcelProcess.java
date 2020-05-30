@@ -55,7 +55,13 @@ public class ExcelProcess {
 			JSONArray arr = obj.getJSONArray(config.getPropertyName());
 			System.out.println(arr.size());
 			if(arr != null) {
-				builder.prepareRows(config.getTplRow()-deledIndex, arr.size());
+				// 处理行，用于对行进行复制操作
+				if(config.getRowAddType()==1){
+					//忽略什么也不做
+				}else{
+					builder.prepareRows(config.getTplRow()-deledIndex, arr.size());
+				}
+				//
 				for(int i = 0; i < arr.size(); i++) {
 					JSONObject item = arr.getJSONObject(i);
 					curListIndex=i+1;

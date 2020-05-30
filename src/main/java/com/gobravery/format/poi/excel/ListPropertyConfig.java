@@ -6,6 +6,7 @@ import java.util.List;
 public class ListPropertyConfig {
 	private int tplRow;
 	private String propertyName;
+	private int rowAddType = 0;//默认0=复制，1=忽略
 	private List<ListItemConfig> itemConfig = new ArrayList<ListItemConfig>();
 	public void addItemConfig(ListItemConfig config) {
 		itemConfig.add(config);
@@ -27,6 +28,12 @@ public class ListPropertyConfig {
 	}
 	public void setItemConfig(List<ListItemConfig> itemConfig) {
 		this.itemConfig = itemConfig;
+	}
+	public int getRowAddType() {
+		return rowAddType;
+	}
+	public void setRowAddType(int rowAddType) {
+		this.rowAddType = rowAddType;
 	}
 	
 }
