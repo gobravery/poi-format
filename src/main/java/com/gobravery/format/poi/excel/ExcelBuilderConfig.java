@@ -9,6 +9,17 @@ import org.apache.commons.beanutils.Converter;
 import org.apache.commons.digester3.Digester;
 
 
+/**  
+
+* <p>Title: ExcelBuilderConfig</p>  
+
+* <p>Description: </p>  
+
+* @author qinming  
+
+* @date 2020年6月16日  
+
+*/  
 public class ExcelBuilderConfig {
 	static {
 		ConvertUtils.register(new Converter(){
@@ -25,10 +36,25 @@ public class ExcelBuilderConfig {
 			
 		}, RowAction.class);
 	}
-	private List<SimplePropertyConfig> simplePropertyConfig = new ArrayList<SimplePropertyConfig>();
-	private List<RowPropertyConfig> rowPropertyConfig = new ArrayList<RowPropertyConfig>();
-	private List<ListPropertyConfig> listPropertyConfig = new ArrayList<ListPropertyConfig>();
+	/**
+	 * 简单表格
+	 */
+	protected List<SimplePropertyConfig> simplePropertyConfig = new ArrayList<SimplePropertyConfig>();
+	/**
+	 * 跨行处理
+	 */
+	protected List<RowPropertyConfig> rowPropertyConfig = new ArrayList<RowPropertyConfig>();
+	/**
+	 * 多行数据
+	 */
+	protected List<ListPropertyConfig> listPropertyConfig = new ArrayList<ListPropertyConfig>();
+	/**
+	 * @return
+	 */
 	public List<SimplePropertyConfig> getSimplePropertyConfig() {
+		if(simplePropertyConfig==null){
+			return new ArrayList<SimplePropertyConfig>();
+		}
 		return simplePropertyConfig;
 	}
 
@@ -47,6 +73,9 @@ public class ExcelBuilderConfig {
 	}
 
 	public List<ListPropertyConfig> getListPropertyConfig() {
+		if(listPropertyConfig==null){
+			return new ArrayList<ListPropertyConfig>();
+		}
 		return listPropertyConfig;
 	}
 
@@ -55,6 +84,9 @@ public class ExcelBuilderConfig {
 	}
 	
 	public List<RowPropertyConfig> getRowPropertyConfig() {
+		if(rowPropertyConfig==null){
+			return new ArrayList<RowPropertyConfig>();
+		}
 		return rowPropertyConfig;
 	}
 

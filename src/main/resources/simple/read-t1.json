@@ -1,0 +1,24 @@
+{
+	"listPropertyConfig" : [
+	   {
+		   "tplRow":0 ,"propertyName":"heads","rowAddType":0,
+		    "itemConfig":[
+		     		{"cellIndex":0,"propertyName":"c0"},
+		     		{"cellIndex":1,"propertyName":"c1"},
+		     		{"cellIndex":2,"propertyName":"c2"},
+		     		{"cellIndex":3,"propertyName":"c3"},
+		     		{"cellIndex":4,"propertyName":"c4"}
+		     ]
+		},
+		{
+		   "tplRow":1 ,"propertyName":"pools","rowAddType":0,
+		    "itemConfig":[
+		     		{"cellIndex":0,"propertyName":"c0"},
+		     		{"cellIndex":1,"propertyName":"c1"},
+		     		{"cellIndex":2,"propertyName":"c2"},
+		     		{"cellIndex":3,"propertyName":"c3"},
+		     		{"cellIndex":4,"propertyName":"c4"}
+		     ]
+		}
+	]
+}

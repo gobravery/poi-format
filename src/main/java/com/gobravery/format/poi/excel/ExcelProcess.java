@@ -58,7 +58,7 @@ public class ExcelProcess {
 				// 处理行，用于对行进行复制操作
 				if(config.getRowAddType()==1){
 					//忽略什么也不做
-					builder.prepareRows(config.getTplRow()-deledIndex, 1);
+					builder.prepareRows(config.getTplRow()-deledIndex, -1);
 				}else{
 					builder.prepareRows(config.getTplRow()-deledIndex, arr.size());
 				}
